@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Krishna Hospital – Urun Ishwarpur</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/index.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="nav-container">
+    <div class="nav-logo">
+      <div class="logo-icon"><i class="fas fa-heartbeat"></i></div>
+      <div class="logo-text">
+        <span class="logo-main">Krishna Hospital</span>
+        <span class="logo-sub">Urun Ishwarpur – 415414</span>
+      </div>
+    </div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="departments.html">Departments</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="appointment.html">Appointments</a></li>
+      <li><a href="tests.html">Tests & Reports</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="patient-login.html" class="btn btn-outline">Patient Login</a>
+      <a href="doctor-login.html" class="btn btn-primary">Doctor Login</a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg">
+    <div class="hero-shape shape1"></div>
+    <div class="hero-shape shape2"></div>
+    <div class="hero-shape shape3"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-badge"><i class="fas fa-shield-heart"></i> Trusted Healthcare Since 1998</div>
+    <h1 class="hero-title">Your Health,<br><span class="accent">Our Mission</span></h1>
+    <p class="hero-desc">World-class medical care with a human touch. Serving the community of Urun Ishwarpur and beyond with compassion, expertise, and cutting-edge technology.</p>
+    <div class="hero-actions">
+      <a href="appointment.html" class="btn btn-primary btn-lg"><i class="fas fa-calendar-plus"></i> Book Appointment</a>
+      <a href="services.html" class="btn btn-ghost btn-lg"><i class="fas fa-play-circle"></i> Our Services</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-num">25+</span><span class="stat-label">Years of Care</span></div>
+      <div class="stat-divider"></div>
+      <div class="stat"><span class="stat-num">120+</span><span class="stat-label">Expert Doctors</span></div>
+      <div class="stat-divider"></div>
+      <div class="stat"><span class="stat-num">50k+</span><span class="stat-label">Happy Patients</span></div>
+      <div class="stat-divider"></div>
+      <div class="stat"><span class="stat-num">24/7</span><span class="stat-label">Emergency Care</span></div>
+    </div>
+  </div>
+  <div class="hero-image">
+    <div class="hero-card card-float">
+      <div class="card-icon teal"><i class="fas fa-user-md"></i></div>
+      <div><div class="card-title">Dr. Online</div><div class="card-sub">Consult Now</div></div>
+    </div>
+    <div class="hero-card card-float2">
+      <div class="card-icon blue"><i class="fas fa-vials"></i></div>
+      <div><div class="card-title">Lab Reports</div><div class="card-sub">Download Instantly</div></div>
+    </div>
+    <div class="hero-img-circle">
+      <div class="img-inner">
+        <i class="fas fa-hospital-alt hero-hospital-icon"></i>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUICK ACCESS -->
+<section class="quick-access">
+  <div class="container">
+    <div class="quick-grid">
+      <a href="appointment.html" class="quick-card">
+        <div class="qc-icon"><i class="fas fa-calendar-check"></i></div>
+        <div class="qc-text">Book Appointment</div>
+      </a>
+      <a href="tests.html" class="quick-card">
+        <div class="qc-icon"><i class="fas fa-flask"></i></div>
+        <div class="qc-text">Lab Tests</div>
+      </a>
+      <a href="tests.html#reports" class="quick-card">
+        <div class="qc-icon"><i class="fas fa-file-medical"></i></div>
+        <div class="qc-text">View Reports</div>
+      </a>
+      <a href="payment.html" class="quick-card">
+        <div class="qc-icon"><i class="fas fa-credit-card"></i></div>
+        <div class="qc-text">Online Payment</div>
+      </a>
+      <a href="departments.html" class="quick-card">
+        <div class="qc-icon"><i class="fas fa-clinic-medical"></i></div>
+        <div class="qc-text">Departments</div>
+      </a>
+      <a href="contact.html" class="quick-card">
+        <div class="qc-icon"><i class="fas fa-ambulance"></i></div>
+        <div class="qc-text">Emergency</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- DEPARTMENTS PREVIEW -->
+<section class="section departments-preview">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-badge">Our Specialties</div>
+      <h2 class="section-title">World-Class <span class="accent">Departments</span></h2>
+      <p class="section-sub">Comprehensive medical care across all specialties under one roof.</p>
+    </div>
+    <div class="dept-grid">
+      <a href="departments.html" class="dept-card" style="--c:#0ea5e9">
+        <div class="dept-icon"><i class="fas fa-heart"></i></div>
+        <h3>Cardiology</h3>
+        <p>Heart & vascular care with advanced diagnostics</p>
+      </a>
+      <a href="departments.html" class="dept-card" style="--c:#10b981">
+        <div class="dept-icon"><i class="fas fa-brain"></i></div>
+        <h3>Neurology</h3>
+        <p>Brain, spine & nervous system treatments</p>
+      </a>
+      <a href="departments.html" class="dept-card" style="--c:#f59e0b">
+        <div class="dept-icon"><i class="fas fa-bone"></i></div>
+        <h3>Orthopedics</h3>
+        <p>Bone, joint & musculoskeletal surgery</p>
+      </a>
+      <a href="departments.html" class="dept-card" style="--c:#8b5cf6">
+        <div class="dept-icon"><i class="fas fa-baby"></i></div>
+        <h3>Pediatrics</h3>
+        <p>Specialized care for infants & children</p>
+      </a>
+      <a href="departments.html" class="dept-card" style="--c:#ef4444">
+        <div class="dept-icon"><i class="fas fa-female"></i></div>
+        <h3>Gynecology</h3>
+        <p>Women's health & maternity services</p>
+      </a>
+      <a href="departments.html" class="dept-card" style="--c:#06b6d4">
+        <div class="dept-icon"><i class="fas fa-eye"></i></div>
+        <h3>Ophthalmology</h3>
+        <p>Eye care & vision correction</p>
+      </a>
+    </div>
+    <div class="section-footer">
+      <a href="departments.html" class="btn btn-outline">View All Departments <i class="fas fa-arrow-right"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- WHY CHOOSE US -->
+<section class="section why-us">
+  <div class="container">
+    <div class="why-grid">
+      <div class="why-content">
+        <div class="section-badge">Why Krishna Hospital</div>
+        <h2 class="section-title">Healthcare You Can <span class="accent">Trust</span></h2>
+        <p class="why-desc">For over 25 years, Krishna Hospital has been the cornerstone of healthcare in Urun Ishwarpur. We combine medical excellence with compassionate care.</p>
+        <div class="why-list">
+          <div class="why-item">
+            <div class="why-icon"><i class="fas fa-check-circle"></i></div>
+            <div><strong>NABH Accredited</strong><p>Meeting national standards of patient safety & quality</p></div>
+          </div>
+          <div class="why-item">
+            <div class="why-icon"><i class="fas fa-check-circle"></i></div>
+            <div><strong>Advanced Technology</strong><p>Latest diagnostic equipment & surgical technology</p></div>
+          </div>
+          <div class="why-item">
+            <div class="why-icon"><i class="fas fa-check-circle"></i></div>
+            <div><strong>Expert Team</strong><p>120+ specialist doctors with years of experience</p></div>
+          </div>
+          <div class="why-item">
+            <div class="why-icon"><i class="fas fa-check-circle"></i></div>
+            <div><strong>Affordable Care</strong><p>Quality treatment at prices the community can afford</p></div>
+          </div>
+        </div>
+        <a href="about.html" class="btn btn-primary">Learn More About Us</a>
+      </div>
+      <div class="why-visual">
+        <div class="why-cards">
+          <div class="wc wc1"><i class="fas fa-star"></i><span>4.9 / 5 Rating</span></div>
+          <div class="wc wc2"><i class="fas fa-procedures"></i><span>500+ Beds</span></div>
+          <div class="wc wc3"><i class="fas fa-microscope"></i><span>Modern Labs</span></div>
+          <div class="wc wc4"><i class="fas fa-ambulance"></i><span>24/7 Emergency</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section testimonials">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-badge">Patient Stories</div>
+      <h2 class="section-title">What Our Patients <span class="accent">Say</span></h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        <p>"Exceptional care during my cardiac procedure. The team at Krishna Hospital was professional, caring and made me feel at home throughout my recovery."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">RK</div>
+          <div><strong>Rajesh Kumar</strong><span>Cardiac Patient</span></div>
+        </div>
+      </div>
+      <div class="testi-card featured">
+        <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        <p>"The online appointment system is so convenient. I booked my consultation, got my lab reports digitally and paid online – all from home. Truly modern healthcare!"</p>
+        <div class="testi-author">
+          <div class="testi-avatar">PM</div>
+          <div><strong>Priya Mehta</strong><span>Regular Patient</span></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+        <p>"The pediatric department here is outstanding. Dr. Sharma took such wonderful care of my daughter. Highly recommend Krishna Hospital to all families."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">SP</div>
+          <div><strong>Sunita Patil</strong><span>Parent</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EMERGENCY BANNER -->
+<section class="emergency-banner">
+  <div class="container">
+    <div class="emergency-content">
+      <div class="emergency-icon"><i class="fas fa-phone-volume"></i></div>
+      <div>
+        <h3>24/7 Emergency Services</h3>
+        <p>Our emergency team is always ready. Don't hesitate to call.</p>
+      </div>
+      <div class="emergency-numbers">
+        <a href="tel:+918459225867" class="emerg-num"><i class="fas fa-phone"></i> +91 8459225867</a>
+        <a href="tel:102" class="emerg-num emerg-alt"><i class="fas fa-ambulance"></i> 102 (Ambulance)</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo">
+          <div class="logo-icon"><i class="fas fa-heartbeat"></i></div>
+          <div class="logo-text">
+            <span class="logo-main">Krishna Hospital</span>
+            <span class="logo-sub">Urun Ishwarpur</span>
+          </div>
+        </div>
+        <p>Dedicated to providing quality healthcare services to the people of Urun Ishwarpur and surrounding areas since 1998.</p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="departments.html">Departments</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="appointment.html">Book Appointment</a></li>
+          <li><a href="tests.html">Tests & Reports</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Patient Services</h4>
+        <ul>
+          <li><a href="patient-login.html">Patient Portal</a></li>
+          <li><a href="payment.html">Online Payment</a></li>
+          <li><a href="tests.html">Download Reports</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="about.html">About Hospital</a></li>
+        </ul>
+      </div>
+      <div class="footer-contact">
+        <h4>Contact Info</h4>
+        <div class="fc-item"><i class="fas fa-map-marker-alt"></i><span>Urun Ishwarpur, Maharashtra 415414</span></div>
+        <div class="fc-item"><i class="fas fa-phone"></i><span>+91 8459225867</span></div>
+        <div class="fc-item"><i class="fas fa-envelope"></i><span>info@krishnahospital.com</span></div>
+        <div class="fc-item"><i class="fas fa-clock"></i><span>OPD: 8:00 AM – 8:00 PM</span></div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 Krishna Hospital, Urun Ishwarpur. All rights reserved.</p>
+      <div class="footer-bottom-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
