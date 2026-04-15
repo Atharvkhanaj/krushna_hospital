@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Book Appointment – Krishna Hospital</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    .appt-section { padding: 50px 0 80px; }
+    .appt-grid { display: grid; grid-template-columns: 1fr 380px; gap: 32px; align-items: start; }
+    .appt-form-card { background:#fff;border-radius:var(--radius);padding:36px;box-shadow:var(--shadow);border:1px solid var(--border); }
+    .appt-form-card h2 { font-family:var(--font-display);font-size:26px;color:var(--dark);margin-bottom:6px; }
+    .appt-form-card p { color:var(--text-light);font-size:14px;margin-bottom:28px; }
+    .step-indicator { display:flex;align-items:center;margin-bottom:36px; }
+    .step { display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600; }
+    .step-num { width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700; }
+    .step.done .step-num { background:var(--success);color:#fff; }
+    .step.active .step-num { background:var(--primary);color:#fff; }
+    .step.pending .step-num { background:var(--border);color:var(--text-light); }
+    .step.active { color:var(--primary); }
+    .step.pending { color:var(--text-light); }
+    .step-line { flex:1;height:2px;background:var(--border);margin:0 8px; }
+    .step-line.done { background:var(--success); }
+    .form-section { display:none; }
+    .form-section.active { display:block; }
+    .form-row-3 { display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px; }
+    .form-row { display:grid;grid-template-columns:1fr 1fr;gap:16px; }
+    .time-slots { display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:8px; }
+    .time-slot {
+      padding:10px 8px;border:1.5px solid var(--border);border-radius:8px;
+      text-align:center;cursor:pointer;font-size:13px;font-weight:600;
+      color:var(--text);transition:var(--transition);background:#fff;
+    }
+    .time-slot:hover { border-color:var(--primary);color:var(--primary);background:var(--primary-light); }
+    .time-slot.selected { border-color:var(--primary);background:var(--primary);color:#fff; }
+    .time-slot.unavailable { background:var(--bg);color:var(--text-light);cursor:not-allowed;border-color:var(--border); }
+    .btn-group { display:flex;gap:12px;margin-top:28px; }
+    .doctor-cards { display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px; }
+    .doctor-card {
+      border:1.5px solid var(--border);border-radius:12px;padding:16px;cursor:pointer;
+      transition:var(--transition);display:flex;gap:12px;align-items:flex-start;
+    }
+    .doctor-card:hover { border-color:var(--primary);background:var(--primary-light); }
+    .doctor-card.selected { border-color:var(--primary);background:var(--primary-light); }
+    .doc-avatar { width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:16px;flex-shrink:0; }
+    .doc-name { font-weight:700;font-size:14px;color:var(--dark); }
+    .doc-spec { font-size:12px;color:var(--text-light);margin-bottom:4px; }
+    .doc-rating { font-size:12px;color:var(--warning); }
+    .summary-card { background:#fff;border-radius:var(--radius);padding:28px;box-shadow:var(--shadow);border:1px solid var(--border);position:sticky;top:100px; }
+    .summary-card h3 { font-family:var(--font-display);font-size:20px;margin-bottom:20px; }
+    .summary-item { display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border);font-size:14px; }
+    .summary-item:last-of-type { border-bottom:none; }
+    .summary-item .label { color:var(--text-light); }
+    .summary-item .value { font-weight:600;color:var(--dark);text-align:right; }
+    .confirm-box { background:var(--primary-light);border-radius:12px;padding:20px;text-align:center;margin-top:20px; }
+    .confirm-box .conf-id { font-size:22px;font-weight:700;color:var(--primary);font-family:var(--font-display); }
+    .confirm-box p { font-size:13px;color:var(--text-light);margin-top:6px; }
+    .type-toggle { display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px; }
+    .type-btn {
+      padding:14px;border:1.5px solid var(--border);border-radius:10px;
+      text-align:center;cursor:pointer;transition:var(--transition);
+    }
+    .type-btn:hover { border-color:var(--primary); }
+    .type-btn.selected { border-color:var(--primary);background:var(--primary-light); }
+    .type-btn i { font-size:20px;color:var(--primary);display:block;margin-bottom:6px; }
+    .type-btn span { font-size:13px;font-weight:600; }
+    @media(max-width:900px){ .appt-grid{grid-template-columns:1fr;} .summary-card{position:static;} }
+    @media(max-width:600px){ .doctor-cards{grid-template-columns:1fr;} .time-slots{grid-template-columns:repeat(3,1fr);} .form-row,.form-row-3{grid-template-columns:1fr;} }
+  </style>
+</head>
+<body>
+<nav class="navbar" id="navbar">
+  <div class="nav-container">
+    <a href="index.html" class="nav-logo">
+      <div class="logo-icon"><i class="fas fa-heartbeat"></i></div>
+      <div class="logo-text"><span class="logo-main">Krishna Hospital</span><span class="logo-sub">Urun Ishwarpur – 415414</span></div>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="departments.html">Departments</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="appointment.html" class="active">Appointments</a></li>
+      <li><a href="tests.html">Tests & Reports</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="patient-login.html" class="btn btn-outline">Patient Login</a>
+      <a href="doctor-login.html" class="btn btn-primary">Doctor Login</a>
+    </div>
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="container">
+    <div class="breadcrumb"><a href="index.html">Home</a><i class="fas fa-chevron-right"></i> Book Appointment</div>
+    <h1>Book an Appointment</h1>
+    <p>Schedule a consultation with our specialist doctors in just a few steps.</p>
+  </div>
+</div>
+
+<section class="appt-section">
+  <div class="container">
+    <div class="appt-grid">
+      <div class="appt-form-card">
+        <h2>Schedule Your Visit</h2>
+        <p>Fill in the details below to book your appointment.</p>
+
+        <!-- STEP INDICATOR -->
+        <div class="step-indicator">
+          <div class="step active" id="step1-ind"><div class="step-num">1</div>Personal</div>
+          <div class="step-line" id="line1"></div>
+          <div class="step pending" id="step2-ind"><div class="step-num">2</div>Department</div>
+          <div class="step-line" id="line2"></div>
+          <div class="step pending" id="step3-ind"><div class="step-num">3</div>Schedule</div>
+          <div class="step-line" id="line3"></div>
+          <div class="step pending" id="step4-ind"><div class="step-num">4</div>Confirm</div>
+        </div>
+
+        <!-- STEP 1: PERSONAL -->
+        <div class="form-section active" id="step1">
+          <div class="form-row">
+            <div class="form-group"><label>First Name <span>*</span></label><input type="text" class="form-control" id="pFirst" placeholder="First name" required/></div>
+            <div class="form-group"><label>Last Name <span>*</span></label><input type="text" class="form-control" id="pLast" placeholder="Last name" required/></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Mobile Number <span>*</span></label><input type="tel" class="form-control" id="pMobile" placeholder="10-digit number" required/></div>
+            <div class="form-group"><label>Email</label><input type="email" class="form-control" id="pEmail" placeholder="Optional"/></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Date of Birth <span>*</span></label><input type="date" class="form-control" id="pDob" required/></div>
+            <div class="form-group"><label>Gender <span>*</span></label>
+              <select class="form-control" id="pGender" required>
+                <option value="">Select</option>
+                <option>Male</option><option>Female</option><option>Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Address</label>
+            <input type="text" class="form-control" id="pAddress" placeholder="Your address"/>
+          </div>
+          <div class="form-group">
+            <label>Appointment Type</label>
+            <div class="type-toggle">
+              <div class="type-btn selected" onclick="selectType(this,'In-Person')"><i class="fas fa-hospital"></i><span>In-Person</span></div>
+              <div class="type-btn" onclick="selectType(this,'Video Consultation')"><i class="fas fa-video"></i><span>Video Consult</span></div>
+            </div>
+          </div>
+          <div class="btn-group"><button class="btn btn-primary" onclick="nextStep(1)">Next: Choose Department <i class="fas fa-arrow-right"></i></button></div>
+        </div>
+
+        <!-- STEP 2: DEPARTMENT & DOCTOR -->
+        <div class="form-section" id="step2">
+          <div class="form-group">
+            <label>Select Department <span>*</span></label>
+            <select class="form-control" id="selDept" onchange="loadDoctors(this.value)" required>
+              <option value="">Choose a department</option>
+              <option>Cardiology</option><option>Neurology</option><option>Orthopedics</option>
+              <option>Pediatrics</option><option>Gynecology</option><option>General Medicine</option>
+              <option>Dermatology</option><option>Ophthalmology</option><option>ENT</option><option>Psychiatry</option>
+            </select>
+          </div>
+          <div class="form-group" id="doctorSection" style="display:none">
+            <label>Choose Doctor</label>
+            <div class="doctor-cards" id="doctorCards"></div>
+          </div>
+          <div class="form-group">
+            <label>Reason for Visit</label>
+            <textarea class="form-control" id="visitReason" placeholder="Briefly describe your symptoms or reason for consultation..."></textarea>
+          </div>
+          <div class="btn-group">
+            <button class="btn btn-outline" onclick="prevStep(2)"><i class="fas fa-arrow-left"></i> Back</button>
+            <button class="btn btn-primary" onclick="nextStep(2)">Next: Pick Schedule <i class="fas fa-arrow-right"></i></button>
+          </div>
+        </div>
+
+        <!-- STEP 3: DATE & TIME -->
+        <div class="form-section" id="step3">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Preferred Date <span>*</span></label>
+              <input type="date" class="form-control" id="apptDate" required onchange="updateSummary()"/>
+            </div>
+            <div class="form-group">
+              <label>Preferred Session</label>
+              <select class="form-control" id="apptSession" onchange="renderTimeSlots()">
+                <option value="morning">Morning (9 AM – 1 PM)</option>
+                <option value="afternoon">Afternoon (2 PM – 5 PM)</option>
+                <option value="evening">Evening (5 PM – 8 PM)</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Available Time Slots</label>
+            <div class="time-slots" id="timeSlots"></div>
+          </div>
+          <div class="btn-group">
+            <button class="btn btn-outline" onclick="prevStep(3)"><i class="fas fa-arrow-left"></i> Back</button>
+            <button class="btn btn-primary" onclick="nextStep(3)">Review & Confirm <i class="fas fa-arrow-right"></i></button>
+          </div>
+        </div>
+
+        <!-- STEP 4: CONFIRM -->
+        <div class="form-section" id="step4">
+          <div class="alert alert-info" style="margin-bottom:20px"><i class="fas fa-info-circle"></i> Please review your appointment details before confirming.</div>
+          <div id="reviewDetails"></div>
+          <div class="form-group" style="margin-top:20px">
+            <label>Any additional notes for the doctor?</label>
+            <textarea class="form-control" id="extraNotes" placeholder="Optional notes..."></textarea>
+          </div>
+          <div class="btn-group">
+            <button class="btn btn-outline" onclick="prevStep(4)"><i class="fas fa-arrow-left"></i> Edit</button>
+            <button class="btn btn-primary" onclick="confirmAppointment()"><i class="fas fa-check"></i> Confirm Appointment</button>
+          </div>
+          <div id="successMsg" style="display:none"></div>
+        </div>
+      </div>
+
+      <!-- SUMMARY SIDEBAR -->
+      <div class="summary-card">
+        <h3>Appointment Summary</h3>
+        <div id="summaryContent">
+          <div style="text-align:center;padding:20px;color:var(--text-light)">
+            <i class="fas fa-calendar-alt" style="font-size:36px;opacity:0.3;display:block;margin-bottom:10px"></i>
+            Fill in the form to see your appointment summary here.
+          </div>
+        </div>
+        <div style="margin-top:20px;padding-top:20px;border-top:1px solid var(--border)">
+          <div style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text-light);margin-bottom:10px">
+            <i class="fas fa-map-marker-alt" style="color:var(--primary)"></i>Krishna Hospital, Urun Ishwarpur 415414
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text-light)">
+            <i class="fas fa-phone" style="color:var(--primary)"></i>+91 123 456 7890
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-bottom" style="border-top:none;padding-top:0">
+      <p>© 2024 Krishna Hospital, Urun Ishwarpur. All rights reserved.</p>
+      <a href="index.html" class="btn btn-outline btn-sm">← Back to Home</a>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+let currentStep = 1;
+let selectedDoctor = '';
+let selectedTime = '';
+let appointmentType = 'In-Person';
+
+// Set min date to today
+document.addEventListener('DOMContentLoaded', () => {
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('apptDate').min = today;
+  document.getElementById('pDob').max = today;
+  renderTimeSlots();
+});
+
+function selectType(el, type) {
+  document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('selected'));
+  el.classList.add('selected');
+  appointmentType = type;
+}
+
+const doctorData = {
+  'Cardiology': [
+    { name: 'Dr. Anil Sharma', initials: 'AS', spec: 'Senior Cardiologist', rating: '4.9', exp: '18 yrs' },
+    { name: 'Dr. Meena Patil', initials: 'MP', spec: 'Interventional Cardiologist', rating: '4.8', exp: '12 yrs' }
+  ],
+  'Neurology': [
+    { name: 'Dr. Suresh Rao', initials: 'SR', spec: 'Senior Neurologist', rating: '4.9', exp: '20 yrs' },
+    { name: 'Dr. Kavita Nair', initials: 'KN', spec: 'Neuro Surgeon', rating: '4.7', exp: '14 yrs' }
+  ],
+  'Pediatrics': [
+    { name: 'Dr. Priya Desai', initials: 'PD', spec: 'Pediatrician', rating: '4.9', exp: '15 yrs' },
+    { name: 'Dr. Rahul Joshi', initials: 'RJ', spec: 'Neonatologist', rating: '4.8', exp: '10 yrs' }
+  ],
+  'Orthopedics': [
+    { name: 'Dr. Vikram Singh', initials: 'VS', spec: 'Orthopedic Surgeon', rating: '4.8', exp: '16 yrs' },
+    { name: 'Dr. Anita Kumar', initials: 'AK', spec: 'Joint Replacement', rating: '4.7', exp: '13 yrs' }
+  ]
+};
+
+function loadDoctors(dept) {
+  const section = document.getElementById('doctorSection');
+  const cards = document.getElementById('doctorCards');
+  const docs = doctorData[dept] || [];
+  if (docs.length === 0) { section.style.display = 'none'; return; }
+  section.style.display = 'block';
+  cards.innerHTML = docs.map((d, i) => `
+    <div class="doctor-card" onclick="selectDoctor(this, '${d.name}')">
+      <div class="doc-avatar">${d.initials}</div>
+      <div>
+        <div class="doc-name">${d.name}</div>
+        <div class="doc-spec">${d.spec} • ${d.exp}</div>
+        <div class="doc-rating"><i class="fas fa-star"></i> ${d.rating}</div>
+      </div>
+    </div>
+  `).join('');
+  selectedDoctor = '';
+  updateSummary();
+}
+
+function selectDoctor(el, name) {
+  document.querySelectorAll('.doctor-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedDoctor = name;
+  updateSummary();
+}
+
+const slots = {
+  morning: ['9:00 AM','9:30 AM','10:00 AM','10:30 AM','11:00 AM','11:30 AM','12:00 PM','12:30 PM'],
+  afternoon: ['2:00 PM','2:30 PM','3:00 PM','3:30 PM','4:00 PM','4:30 PM'],
+  evening: ['5:00 PM','5:30 PM','6:00 PM','6:30 PM','7:00 PM','7:30 PM']
+};
+const unavailable = [1,4,7];
+
+function renderTimeSlots() {
+  const session = document.getElementById('apptSession').value;
+  const container = document.getElementById('timeSlots');
+  container.innerHTML = slots[session].map((t, i) =>
+    `<div class="time-slot${unavailable.includes(i) ? ' unavailable' : ''}" onclick="selectSlot(this,'${t}')">${t}</div>`
+  ).join('');
+  selectedTime = '';
+  updateSummary();
+}
+
+function selectSlot(el, time) {
+  if (el.classList.contains('unavailable')) return;
+  document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedTime = time;
+  updateSummary();
+}
+
+function updateSummary() {
+  const name = (document.getElementById('pFirst')?.value || '') + ' ' + (document.getElementById('pLast')?.value || '');
+  const dept = document.getElementById('selDept')?.value;
+  const date = document.getElementById('apptDate')?.value;
+  const items = [
+    { label: 'Patient', value: name.trim() || '—' },
+    { label: 'Type', value: appointmentType },
+    { label: 'Department', value: dept || '—' },
+    { label: 'Doctor', value: selectedDoctor || '—' },
+    { label: 'Date', value: date ? new Date(date).toLocaleDateString('en-IN', {day:'2-digit',month:'long',year:'numeric'}) : '—' },
+    { label: 'Time', value: selectedTime || '—' },
+  ];
+  document.getElementById('summaryContent').innerHTML = items.map(i => `
+    <div class="summary-item"><span class="label">${i.label}</span><span class="value">${i.value}</span></div>
+  `).join('');
+}
+
+function nextStep(step) {
+  if (step === 1) {
+    const first = document.getElementById('pFirst').value.trim();
+    const last = document.getElementById('pLast').value.trim();
+    const mobile = document.getElementById('pMobile').value.trim();
+    if (!first || !last || !mobile) { showToast('Please fill in all required fields.','warning'); return; }
+    if (!/^\d{10}$/.test(mobile)) { showToast('Enter a valid 10-digit mobile number.','warning'); return; }
+  }
+  if (step === 2) {
+    const dept = document.getElementById('selDept').value;
+    if (!dept) { showToast('Please select a department.','warning'); return; }
+  }
+  if (step === 3) {
+    const date = document.getElementById('apptDate').value;
+    if (!date) { showToast('Please select a date.','warning'); return; }
+    if (!selectedTime) { showToast('Please select a time slot.','warning'); return; }
+    buildReviewDetails();
+  }
+  goToStep(step + 1);
+}
+
+function prevStep(step) { goToStep(step - 1); }
+
+function goToStep(step) {
+  currentStep = step;
+  for (let i = 1; i <= 4; i++) {
+    document.getElementById('step' + i).classList.toggle('active', i === step);
+    const ind = document.getElementById('step' + i + '-ind');
+    ind.className = 'step ' + (i < step ? 'done' : i === step ? 'active' : 'pending');
+    if (i < step) ind.querySelector('.step-num').innerHTML = '<i class="fas fa-check" style="font-size:11px"></i>';
+    else ind.querySelector('.step-num').textContent = i;
+    if (i < 4) {
+      const line = document.getElementById('line' + i);
+      line.className = 'step-line ' + (i < step ? 'done' : '');
+    }
+  }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function buildReviewDetails() {
+  const date = new Date(document.getElementById('apptDate').value).toLocaleDateString('en-IN',{day:'2-digit',month:'long',year:'numeric'});
+  const items = [
+    ['Patient Name', document.getElementById('pFirst').value + ' ' + document.getElementById('pLast').value],
+    ['Mobile', document.getElementById('pMobile').value],
+    ['Appointment Type', appointmentType],
+    ['Department', document.getElementById('selDept').value],
+    ['Doctor', selectedDoctor || 'Any Available Doctor'],
+    ['Date', date],
+    ['Time', selectedTime],
+    ['Reason', document.getElementById('visitReason').value || 'Not specified'],
+  ];
+  document.getElementById('reviewDetails').innerHTML = '<div class="card" style="padding:20px">' +
+    items.map(([l,v]) => `<div class="summary-item"><span class="label">${l}</span><span class="value">${v}</span></div>`).join('') +
+    '</div>';
+}
+
+function confirmAppointment() {
+  const apptId = 'KH-APT-' + Date.now().toString().slice(-6);
+  document.getElementById('successMsg').style.display = 'block';
+  document.getElementById('successMsg').innerHTML = `
+    <div style="margin-top:24px">
+      <div class="alert alert-success"><i class="fas fa-check-circle"></i> Appointment confirmed successfully!</div>
+      <div class="confirm-box">
+        <div style="font-size:13px;color:var(--text-light);margin-bottom:6px">Appointment ID</div>
+        <div class="conf-id">${apptId}</div>
+        <p>A confirmation will be sent to your mobile number. Please arrive 15 minutes before your scheduled time.</p>
+        <div style="margin-top:16px;display:flex;gap:10px;justify-content:center">
+          <a href="payment.html" class="btn btn-primary btn-sm"><i class="fas fa-credit-card"></i> Pay Now</a>
+          <button class="btn btn-outline btn-sm" onclick="window.print()"><i class="fas fa-print"></i> Print</button>
+          <a href="index.html" class="btn btn-outline btn-sm">Back to Home</a>
+        </div>
+      </div>
+    </div>
+  `;
+  document.querySelector('.btn-group:last-of-type').style.display = 'none';
+}
+</script>
+</body>
+</html>

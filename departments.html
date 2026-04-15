@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Departments – Krishna Hospital</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    .dept-full-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 28px;
+    }
+    .dept-full-card {
+      background: #fff;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      transition: var(--transition);
+    }
+    .dept-full-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
+    .dept-card-header {
+      padding: 28px 28px 20px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      border-bottom: 1px solid var(--border);
+    }
+    .dept-icon-lg {
+      width: 60px; height: 60px;
+      border-radius: 16px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 26px;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .dept-card-header h3 { font-family: var(--font-display); font-size: 20px; color: var(--dark); margin-bottom: 4px; }
+    .dept-card-header span { font-size: 13px; color: var(--text-light); }
+    .dept-card-body { padding: 20px 28px 24px; }
+    .dept-card-body p { color: var(--text-light); font-size: 14px; line-height: 1.7; margin-bottom: 16px; }
+    .dept-features { display: flex; flex-wrap: wrap; gap: 8px; }
+    .dept-tag {
+      background: var(--primary-light);
+      color: var(--primary);
+      padding: 4px 12px;
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .dept-doctors {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--text-light);
+    }
+    .dept-doctors i { color: var(--primary); }
+    .dept-filter-bar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+    .filter-btn {
+      padding: 8px 20px;
+      border-radius: 50px;
+      border: 2px solid var(--border);
+      background: #fff;
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-light);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .filter-btn.active, .filter-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: var(--primary-light);
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar" id="navbar">
+  <div class="nav-container">
+    <div class="nav-logo">
+      <div class="logo-icon"><i class="fas fa-heartbeat"></i></div>
+      <div class="logo-text">
+        <span class="logo-main">Krishna Hospital</span>
+        <span class="logo-sub">Urun Ishwarpur – 415414</span>
+      </div>
+    </div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="departments.html" class="active">Departments</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="appointment.html">Appointments</a></li>
+      <li><a href="tests.html">Tests & Reports</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="patient-login.html" class="btn btn-outline">Patient Login</a>
+      <a href="doctor-login.html" class="btn btn-primary">Doctor Login</a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <i class="fas fa-chevron-right"></i>
+      <span>Departments</span>
+    </div>
+    <h1>Our <span style="color:var(--accent)">Departments</span></h1>
+    <p>Comprehensive specialties under one roof — world-class care for every need.</p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+    <div class="dept-filter-bar">
+      <button class="filter-btn active">All Departments</button>
+      <button class="filter-btn">Surgery</button>
+      <button class="filter-btn">Medicine</button>
+      <button class="filter-btn">Diagnostics</button>
+      <button class="filter-btn">Emergency</button>
+    </div>
+
+    <div class="dept-full-grid">
+
+      <div class="dept-full-card">
+        <div class="dept-card-header">
+          <div class="dept-icon-lg" style="background:linear-gradient(135deg,#0ea5e9,#38bdf8)"><i class="fas fa-heart"></i></div>
+          <div><h3>Cardiology</h3><span>Heart & Vascular Care</span></div>
+        </div>
+        <div class="dept-card-body">
+          <p>Our Cardiology department offers complete diagnosis and treatment of heart diseases with advanced ECG, echo, angioplasty and bypass surgery facilities.</p>
+          <div class="dept-features">
+            <span class="dept-tag">ECG & Holter</span>
+            <span class="dept-tag">Echocardiography</span>
+            <span class="dept-tag">Angioplasty</span>
+            <span class="dept-tag">Bypass Surgery</span>
+          </div>
+          <div class="dept-doctors"><i class="fas fa-user-md"></i> 14 Specialist Doctors</div>
+        </div>
+      </div>
+
+      <div class="dept-full-card">
+        <div class="dept-card-header">
+          <div class="dept-icon-lg" style="background:linear-gradient(135deg,#10b981,#34d399)"><i class="fas fa-brain"></i></div>
+          <div><h3>Neurology</h3><span>Brain & Nervous System</span></div>
+        </div>
+        <div class="dept-card-body">
+          <p>Expert care for neurological conditions including stroke, epilepsy, Parkinson's disease, headache disorders and spinal problems with MRI-guided diagnostics.</p>
+          <div class="dept-features">
+            <span class="dept-tag">MRI & CT</span>
+            <span class="dept-tag">EEG</span>
+            <span class="dept-tag">Stroke Care</span>
+            <span class="dept-tag">Spine Surgery</span>
+          </div>
+          <div class="dept-doctors"><i class="fas fa-user-md"></i> 10 Specialist Doctors</div>
+        </div>
+      </div>
+
+      <div class="dept-full-card">
+        <div class="dept-card-header">
+          <div class="dept-icon-lg" style="background:linear-gradient(135deg,#f59e0b,#fbbf24)"><i class="fas fa-bone"></i></div>
+          <div><h3>Orthopedics</h3><span>Bone, Joint & Muscle</span></div>
+        </div>
+        <div class="dept-card-body">
+          <p>Comprehensive musculoskeletal care including joint replacements, arthroscopy, sports injuries, fracture management and physiotherapy rehabilitation.</p>
+          <div class="dept-features">
+            <span class="dept-tag">Joint Replacement</span>
+            <span class="dept-tag">Arthroscopy</span>
+            <span class="dept-tag">Sports Medicine</span>
+            <span class="dept-tag">Physiotherapy</span>
+          </div>
+          <div class="dept-doctors"><i class="fas fa-user-md"></i> 12 Specialist Doctors</div>
+        </div>
+      </div>
+
+      <div class="dept-full-card">
+        <div class="dept-card-header">
+          <div class="dept-icon-lg" style="background:linear-gradient(135deg,#8b5cf6,#a78bfa)"><i class="fas fa-baby"></i></div>
+          <div><h3>Pediatrics</h3><span>Child Health & Care</span></div>
+        </div>
+        <div class="dept-card-body">
+          <p>Dedicated care for newborns, infants and children including a fully equipped NICU, vaccination programs, nutritional guidance and developmental assessment.</p>
+          <div class="dept-features">
+            <span class="dept-tag">NICU</span>
+            <span class="dept-tag">Vaccination</span>
+            <span class="dept-tag">Child Development</span>
+            <span class="dept-tag">Neonatology</span>
+          </div>
+          <div class="dept-doctors"><i class="fas fa-user-md"></i> 9 Specialist Doctors</div>
+        </div>
+      </div>
+
+      <div class="dept-full-card">
+        <div class="dept-card-header">
+          <div class="dept-icon-lg" style="background:linear-gradient(135deg,#ef4444,#f87171)"><i class="fas fa-female"></i></div>
+          <div><h3>Gynecology & Obstetrics</h3><span>Women's Health</span></div>
+        </div>
+        <div class="dept-card-body">
+          <p>Complete women's healthcare services including prenatal care, high-risk pregnancy management, laparoscopic surgery, menstrual disorders and cancer screening.</p>
+          <div class="dept-features">
+            <span class="dept-tag">Maternity</span>
+            <span class="dept-tag">Laparoscopy</span>
+            <span class="dept-tag">Cancer Screening</span>
+            <span class="dept-tag">IVF</span>
+          </div>
+          <div class="dept-doctors"><i class="fas fa-user-md"></i> 11 Specialist Doctors</div>
+        </div>
+      </div>
+
+      <div class="dept-full-card">
+        <div class="dept-card-header">
+          <div class="dept-icon-lg" style="background:linear-gradient(135deg,#06b6d4,#22d3ee)"><i class="fas fa-eye"></i></div>
+          <div><h3>Ophthalmology</h3><span>Eye Care & Vision</span></div>
+        </div>
+        <div class="dept-card-body">
+          <p>Modern eye care for cataract, glaucoma, retinal disorders and refractive errors. Laser-assisted surgeries, diabetic eye screening and paediatric ophthalmology.</p>
+          <div class="dept-features">
+            <span class="dept-tag">Cataract Surgery</span>
+            <span class="dept-tag">LASIK</span>
+            <span class="dept-tag">Retina Care</span>
+            <span class="dept-tag">Glaucoma</span>
+          </div>
+          <div class="dept-doctors"><i class="fas fa-user-md"></i> 7 Specialist Doctors</div>
+        </div>
+      </div>
+
+      <div class="dept-full-card">
+        <div class="dept-card-header">
+          <div class="dept-icon-lg" style="background:linear-gradient(135deg,#ec4899,#f472b6)"><i class="fas fa-lungs"></i></div>
+          <div><h3>Pulmonology</h3><span>Respiratory Medicine</span></div>
+        </div>
+        <div class="dept-card-body">
+          <p>Diagnosis and treatment of asthma, COPD, pneumonia, tuberculosis, sleep apnea and other lung conditions with spirometry and bronchoscopy facilities.</p>
+          <div class="dept-features">
+            <span class="dept-tag">Spirometry</span>
+            <span class="dept-tag">Bronchoscopy</span>
+            <span class="dept-tag">Asthma Care</span>
+            <span class="dept-tag">Sleep Study</span>
+          </div>
+          <div class="dept-doctors"><i class="fas fa-user-md"></i> 6 Specialist Doctors</div>
+        </div>
+      </div>
+
+      <div class="dept-full-card">
+        <div class="dept-card-header">
+          <div class="dept-icon-lg" style="background:linear-gradient(135deg,#14b8a6,#2dd4bf)"><i class="fas fa-kidneys"></i></div>
+          <div><h3>Nephrology</h3><span>Kidney Care</span></div>
+        </div>
+        <div class="dept-card-body">
+          <p>Comprehensive kidney care including haemodialysis, peritoneal dialysis, kidney transplant evaluation and management of chronic kidney disease.</p>
+          <div class="dept-features">
+            <span class="dept-tag">Haemodialysis</span>
+            <span class="dept-tag">Transplant Eval</span>
+            <span class="dept-tag">CKD Management</span>
+            <span class="dept-tag">Hypertension</span>
+          </div>
+          <div class="dept-doctors"><i class="fas fa-user-md"></i> 5 Specialist Doctors</div>
+        </div>
+      </div>
+
+      <div class="dept-full-card">
+        <div class="dept-card-header">
+          <div class="dept-icon-lg" style="background:linear-gradient(135deg,#f97316,#fb923c)"><i class="fas fa-microscope"></i></div>
+          <div><h3>Oncology</h3><span>Cancer Care</span></div>
+        </div>
+        <div class="dept-card-body">
+          <p>Integrated cancer treatment including medical, surgical and radiation oncology. Chemotherapy, immunotherapy, palliative care and counselling support services.</p>
+          <div class="dept-features">
+            <span class="dept-tag">Chemotherapy</span>
+            <span class="dept-tag">Radiation</span>
+            <span class="dept-tag">Immunotherapy</span>
+            <span class="dept-tag">Palliative Care</span>
+          </div>
+          <div class="dept-doctors"><i class="fas fa-user-md"></i> 8 Specialist Doctors</div>
+        </div>
+      </div>
+
+      <div class="dept-full-card">
+        <div class="dept-card-header">
+          <div class="dept-icon-lg" style="background:linear-gradient(135deg,#64748b,#94a3b8)"><i class="fas fa-tooth"></i></div>
+          <div><h3>Dentistry</h3><span>Oral & Dental Health</span></div>
+        </div>
+        <div class="dept-card-body">
+          <p>Full-service dental care including general dentistry, orthodontics, oral surgery, implants and cosmetic procedures in a modern, patient-friendly environment.</p>
+          <div class="dept-features">
+            <span class="dept-tag">Implants</span>
+            <span class="dept-tag">Orthodontics</span>
+            <span class="dept-tag">Root Canal</span>
+            <span class="dept-tag">Cosmetic</span>
+          </div>
+          <div class="dept-doctors"><i class="fas fa-user-md"></i> 6 Specialist Doctors</div>
+        </div>
+      </div>
+
+      <div class="dept-full-card">
+        <div class="dept-card-header">
+          <div class="dept-icon-lg" style="background:linear-gradient(135deg,#7c3aed,#8b5cf6)"><i class="fas fa-head-side-brain"></i></div>
+          <div><h3>Psychiatry</h3><span>Mental Health</span></div>
+        </div>
+        <div class="dept-card-body">
+          <p>Compassionate mental health services including assessment and treatment for depression, anxiety, addiction, schizophrenia and other psychiatric conditions.</p>
+          <div class="dept-features">
+            <span class="dept-tag">Counselling</span>
+            <span class="dept-tag">De-Addiction</span>
+            <span class="dept-tag">Child Psychiatry</span>
+            <span class="dept-tag">Therapy</span>
+          </div>
+          <div class="dept-doctors"><i class="fas fa-user-md"></i> 4 Specialist Doctors</div>
+        </div>
+      </div>
+
+      <div class="dept-full-card">
+        <div class="dept-card-header">
+          <div class="dept-icon-lg" style="background:linear-gradient(135deg,#dc2626,#ef4444)"><i class="fas fa-syringe"></i></div>
+          <div><h3>Emergency & Trauma</h3><span>Critical Care</span></div>
+        </div>
+        <div class="dept-card-body">
+          <p>24/7 emergency services with trauma bays, ICU, ventilator support, resuscitation and rapid response for accidents, cardiac events and medical emergencies.</p>
+          <div class="dept-features">
+            <span class="dept-tag">24/7 Emergency</span>
+            <span class="dept-tag">ICU</span>
+            <span class="dept-tag">Trauma Care</span>
+            <span class="dept-tag">Ventilator</span>
+          </div>
+          <div class="dept-doctors"><i class="fas fa-user-md"></i> 20 Specialist Doctors</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="emergency-banner">
+  <div class="container">
+    <div class="emergency-content">
+      <div class="emergency-icon"><i class="fas fa-phone-volume"></i></div>
+      <div>
+        <h3>24/7 Emergency Services</h3>
+        <p>Our emergency team is always ready. Don't hesitate to call.</p>
+      </div>
+      <div class="emergency-numbers">
+        <a href="tel:+911234567890" class="emerg-num"><i class="fas fa-phone"></i> +91 123 456 7890</a>
+        <a href="tel:102" class="emerg-num emerg-alt"><i class="fas fa-ambulance"></i> 102 (Ambulance)</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo">
+          <div class="logo-icon"><i class="fas fa-heartbeat"></i></div>
+          <div class="logo-text">
+            <span class="logo-main">Krishna Hospital</span>
+            <span class="logo-sub">Urun Ishwarpur</span>
+          </div>
+        </div>
+        <p>Dedicated to providing quality healthcare services to the people of Urun Ishwarpur and surrounding areas since 1998.</p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="departments.html">Departments</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="appointment.html">Book Appointment</a></li>
+          <li><a href="tests.html">Tests & Reports</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Patient Services</h4>
+        <ul>
+          <li><a href="patient-login.html">Patient Portal</a></li>
+          <li><a href="payment.html">Online Payment</a></li>
+          <li><a href="tests.html">Download Reports</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="about.html">About Hospital</a></li>
+        </ul>
+      </div>
+      <div class="footer-contact">
+        <h4>Contact Info</h4>
+        <div class="fc-item"><i class="fas fa-map-marker-alt"></i><span>Urun Ishwarpur, Maharashtra 415414</span></div>
+        <div class="fc-item"><i class="fas fa-phone"></i><span>+91 123 456 7890</span></div>
+        <div class="fc-item"><i class="fas fa-envelope"></i><span>info@krishnahospital.com</span></div>
+        <div class="fc-item"><i class="fas fa-clock"></i><span>OPD: 8:00 AM – 8:00 PM</span></div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 Krishna Hospital, Urun Ishwarpur. All rights reserved.</p>
+      <div class="footer-bottom-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>
